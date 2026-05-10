@@ -191,13 +191,13 @@
 </div>
 
 <script>
-  const CONFIG = {
-    startDate : "2026-04-13T00:00:00", 
-    songTitle  : "Dusk Till Dawn (feat. Sia)",
-    songArtist : "ZAYN, Sia",
-    audioSrc   : "music.mp3", 
-    songCover  : "kapak.jpg" // BURAYA ŞARKININ KAPAK FOTOĞRAFINI KOY
-  };
+ const CONFIG = {
+  startDate : "2026-04-13T00:00:00", 
+  songTitle  : "Dusk Till Dawn (feat. Sia)",
+  songArtist : "ZAYN, Sia",
+  audioSrc   : "./music.mp3", // Başına ./ ekleyerek "aynı klasörde" olduğunu netleştirdik
+  songCover  : "./kapak.jpg" 
+};
 
   const audio = document.getElementById("audio");
   const btn = document.getElementById("musicBtn");

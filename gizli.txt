@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>seni cok seviyorum aşkım iyiki varsın</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --rose: #ffd1df;
+      --deep: #4834d4;
+      --dark: #1a0a10;
+      --cream: #ffffff;
+      --gold: #f9ca24;
+      --soft-blue: #7ed6df;
+    }
+
+    body {
+      background: linear-gradient(135deg, #4834d4 0%, #686de0 35%, #7ed6df 70%, #f9ca24 100%);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--cream);
+      font-family: 'Lato', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 56px;
+    }
+
+    .hero-title .sub {
+      font-size: .85rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .hero-title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 7vw, 3.6rem);
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 30%, var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+    }
+
+    .counter-card, .music-card {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 36px 24px;
+      text-align: center;
+    }
+
+    .counter-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 3px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+    }
+
+    .footer {
+      text-align: center;
+      color: rgba(255,255,255,0.7);
+      font-weight: bold;
+    }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .heart-particle { position: fixed; font-size: 1.4rem; pointer-events: none; animation: floatUp 4s forwards; z-index: 999; }
+    @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-200px); } }
+  </style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="page">
+  <div class="hero-title fade-in">
+    <p class="sub">A ♡ C</p>
+    <h1>Seni Çok Seviyorum</h1>
+  </div>
+
+  <div class="photo-wrap fade-in">
+    <img src="image.png" alt="Biz" id="photo" onclick="spawnHearts(event)" />
+  </div>
+
+  <div class="counter-card fade-in">
+    <div class="counter-grid" style="display: flex; justify-content: center; gap: 15px; align-items: center;">
+      <div class="counter-item">
+        <span class="counter-num" id="days">028</span>
+        <span class="counter-unit" style="display:block; font-size: 0.8rem; margin-top:5px; color: var(--gold);">GÜN</span>
+      </div>
+      <div class="counter-item">
+        <span class="counter-num" id="hours">00</span>
+        <span class="counter-unit" style="display:block; font-size: 0.8rem; margin-top:5px; color: var(--gold);">SAAT</span>
+      </div>
+      <div class="counter-item">
+        <span class="counter-num" id="minutes">00</span>
+        <span class="counter-unit" style="display:block; font-size: 0.8rem; margin-top:5px; color: var(--gold);">DAKİKA</span>
+      </div>
+      <div class="counter-item">
+        <span class="counter-num" id="seconds">00</span>
+        <span class="counter-unit" style="display:block; font-size: 0.8rem; margin-top:5px; color: var(--gold);">SANİYE</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="music-card fade-in" style="display: flex; align-items: center; gap: 15px;">
+    <button id="musicBtn" onclick="toggleMusic()" style="width:50px; height:50px; border-radius:50%; border:none; background: var(--gold); cursor:pointer;">▶</button>
+    <div style="text-align: left;">
+      <div id="songTitle" style="font-weight:bold;">Umrumda Değil</div>
+      <div id="songArtist" style="font-size: 0.8rem; color: var(--gold);">Uzi</div>
+    </div>
+    <audio id="audio" loop></audio>
+  </div>
+
+  <div class="footer fade-in">azrayı cok seviyorum</div>
+</div>
+
+<script>
+  /* ── AYARLAR – 28 GÜN ÖNCESİNE AYARLANDI ── */
+  const CONFIG = {
+    // Bugün 11 Mayıs 2026. 28 gün öncesi 13 Nisan'dır.
+    startDate : "2026-04-13T00:00:00", 
+    songTitle  : "Dusk Till Dawn (feat. Sia) - Radio Edit",
+    songArtist : "ZAYN, Sia",
+    audioSrc   : "music.mp3", 
+  };
+
+  const audio = document.getElementById("audio");
+  const btn = document.getElementById("musicBtn");
+  let playing = false;
+  if (CONFIG.audioSrc) audio.src = CONFIG.audioSrc;
+
+  function toggleMusic() {
+    if (playing) { audio.pause(); btn.textContent = "▶"; }
+    else { audio.play(); btn.textContent = "⏸"; }
+    playing = !playing;
+  }
+
+  function updateCounter() {
+    const start = new Date(CONFIG.startDate);
+    const diff = Math.max(0, new Date() - start);
+    document.getElementById("days").textContent = String(Math.floor(diff / 86400000)).padStart(3, "0");
+    document.getElementById("hours").textContent = String(Math.floor((diff / 3600000) % 24)).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(Math.floor((diff / 60000) % 60)).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
+  }
+  setInterval(updateCounter, 1000);
+  updateCounter();
+
+  function spawnHearts(e) {
+    const emojis = ["❤️","💛","💙","✨"];
+    for (let i = 0; i < 8; i++) {
+      const h = document.createElement("div");
+      h.className = "heart-particle";
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = e.clientX + "px";
+      h.style.top = e.clientY + "px";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 3000);
+    }
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+  });
+  document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
+
+  const canvas = document.getElementById("stars");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const stars = Array.from({ length: 100 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5,
+    o: Math.random()
+  }));
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s => {
+      ctx.fillStyle = `rgba(255,255,255,${Math.abs(Math.sin(Date.now()*0.001 + s.o))})`;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
